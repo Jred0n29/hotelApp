@@ -1,0 +1,190 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block titulo %} Base de datos {% endblock titulo %}
+
+
+<!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+<!-- preloader area start -->
+{% block body %}
+
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- preloader area end -->
+<!-- page container area start -->
+<div class="page-container">
+    <!------------ *sidebar menu area start* ------------->
+    <div class="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="logo">
+                <a href="{% url 'index' %}">
+<img src="{% static 'img/descarga2.png' %}" alt="Foto Hotel">                </a>
+            </div>
+        </div>
+        <div class="main-menu">
+            <div class="menu-inner">
+                <nav>
+                    <ul class="metismenu" id="menu">
+                        <li class="active">
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Panel de
+                                    control</span></a>
+                            <ul class="collapse">
+                                <li class="active"><a href="{% url 'index' %}"><i class="ti-home"></i>
+                                        <span>Inicio</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'hotel:clientes' %}"><i class="ti-user"></i> <span>Registros
+                                    clientes</span></a></li>
+                        <li><a href=""><i class="ti-crown"></i> <span>Registrar admin</span></a></li>
+                        <li><a href="{% url 'hotel:datos' %}"><i class="ti-server"></i> <span>Base de
+                                    datos</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-------------------- °sidebar menu area end° --------------------------->
+
+    <!-- main content area start -->
+    <div class="main-content">
+        <!-- header area start -->
+        <div class="header-area">
+            <div class="row align-items-center">
+                <!-- nav and search button -->
+                <div class="col-md-6 col-sm-8 clearfix">
+                    <div class="nav-btn pull-left">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="search-box pull-left">
+                        <h1 class="page-title pull-left">Hotel San Luis </h1>
+                    </div>
+                </div>
+                <!-- profile info & task notification -->
+                <div class="col-md-6 col-sm-4 clearfix">
+                    <ul class="notification-area pull-right">
+                        <li id="full-view"><i class="ti-fullscreen"></i></li>
+                        <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+
+
+                        
+                        <!----------------------°Finalización mensajes---------------------->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- header area end --------->
+
+
+
+        <!-- page title area start -->
+        <div class="page-title-area">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="breadcrumbs-area clearfix">
+                        <h4 class="page-title pull-left">Bienvenidos</h4>
+                        <ul class="breadcrumbs pull-left">
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 clearfix">
+                    <div class="user-profile pull-right">
+                        <h1 class="user-name dropdown-toggle" data-toggle="dropdown">Hotel San Luis <i
+                                class="fa fa-angle-down"></i></h1>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Configuraciones</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}" >Cerrar sección </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!----------- °Page title area end--------------->
+
+
+
+        <div class="main-content-inner">
+            <!-- sales report area start -->
+            <div class="sales-report-area mt-5 mb-5">
+                <div class="row">
+
+
+                    <!-- Dark table start -->
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">Tabla datos usuarios</h4>
+                                <div class="data-tables datatable-dark">
+                                    <table id="dataTable3" class="text-center">
+                                        <thead class="text-capitalize">
+                                            <tr>
+                                                <th>Nombres</th>
+                                                <th>Identificacón</th>
+                                                <th>Estado</th>
+                                                <th>Fecha Inicio</th>
+                                                <th>Fecha Final</th>
+                                                <th>Valor</th>
+                                                <th>Comentario</th>
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in clientes %}
+                                            <tr>
+                                                <td>{{ i.nombres }}</td>
+                                                <td>{{ i.identificacion }}</td>
+                                                {% if i.estado %}
+                                                <td class="badge badge-info">
+                                                    <p >Activo</p>
+                                                </td>
+                                                {% else %}
+                                                <td class="badge badge-danger">
+                                                    <p>Inactivo</p>
+                                                </td>
+
+                                                {% endif %}
+
+                                                <td>{{ i.fecha_inicial }}</td>
+                                                <td>{{ i.fecha_final }}</td>
+                                                <td>{{i.valor}}</td>
+                                                <td>{{i.comentario}}</td>
+
+                                                <td>
+                                                    <a href="{% url 'hotel:editarC' i.id %}" class="badge badge-success"> Editar <i class="ti-pencil-alt"></i></a>
+                                                    <a href="{% url 'hotel:eliminar_cliente' i.id %} " class="badge badge-danger"> Eliminar <i class="ti-trash"></i></a>
+                                                    <a href="{% url 'hotel:facturas' i.id %}"class="badge badge-warning" > Facturar <i class="ti-import"></i></a>
+                                                </td>
+
+
+                                            </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-rounded btn-primary mb-3"><a href="{% url 'hotel:generarExcel' %}"> <p>Descargar excel</p> </a></button>
+
+                        </div>
+                    </div>
+                    <!-- Dark table end -->
+                </div>
+
+                <!-- sales report area end -->
+                <!-- overview area start -->
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock body %}

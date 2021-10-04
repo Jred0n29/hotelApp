@@ -1,0 +1,415 @@
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> {% block titulo %}Hotel San Luis{% endblock titulo %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/font-awesome.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/themify-icons.css" %}'>
+    <link rel="stylesheet" href='{% static "css/metisMenu.css" %}'>
+    <link rel="stylesheet" href='{% static "css/slicknav.min.css" %}'>
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css"
+        media="all" />
+
+    {% block extracss %}
+    <!-------- datatable-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    {% endblock extracss %}
+    <!-- others css -->
+    <link rel="stylesheet" href='{% static  "css/typography.css" %}'>
+    <link rel="stylesheet" href='{% static  "css/default-css.css" %}'>
+    <link rel="stylesheet" href='{% static  "css/styles.css" %}'>
+    <link rel="stylesheet" href='{% static  "css/responsive.css" %}'>
+
+
+
+</head>
+
+<body>
+
+    {% block body %}
+
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+        <!------------ *sidebar menu area start* ------------->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'img/descarga2.png' %}" alt="Foto Hotel">
+                    </a>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="menu-inner">
+                    <nav>
+                        <ul class="metismenu" id="menu">
+                            <li class="active">
+                                <a href="javascript:void(0)" aria-expanded="true"><i
+                                        class="ti-dashboard"></i><span>Panel de control</span></a>
+                                <ul class="collapse">
+                                    <li class="active"><a href="{% url 'index' %}"><i class="ti-home"></i>
+                                            <span>Inicio</span></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'hotel:clientes' %}"><i class="ti-user"></i> <span>Registros
+                                        clientes</span></a></li>
+                            <li><a href="#"><i class="ti-crown"></i> <span>Registrar admin</span></a></li>
+                            <li><a href="{% url 'hotel:datos' %}"><i class="ti-server"></i> <span>Base de
+                                        datos</span></a></li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-------------------- °sidebar menu area end° --------------------------->
+
+        <!-- main content area start -->
+        <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+                        <div class="nav-btn pull-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="">
+                            <h3 class="page-title pull-left">Hotel San Luis </h3>
+                        </div>
+                    </div>
+                    <!-- profile info & task notification -->
+                    <div class="col-md-6 col-sm-4 clearfix">
+                        <ul class="notification-area pull-right">
+                            <li id="full-view"><i class="ti-fullscreen"></i></li>
+                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+
+
+                            <!----------------------*Comienzo mensajes---------------------->
+                            <li class="dropdown">
+                                <i class="fa fa-envelope-o dropdown-toggle"
+                                    data-toggle="dropdown"><span>{{proximos_inactivos}}</span></i>
+                                <div class="dropdown-menu notify-box nt-enveloper-box">
+                                    <span class="notify-title">Proximas personas a caducir</span>
+                                    <div class="nofity-list">
+
+                                        <!-----------------------*Comienzo Notificaciones mensajes---->
+                                        <div class=" text-center notify-text">
+                                            <h5> Hotel San Luis </h5>
+                                            <br>
+
+                                            {% for i in personas_inactivas %}
+                                            <p class="msg"><b>{{i}}</b></p>
+
+                                            {% endfor %}
+                                        </div>
+                                        <!-----------------------°Finalizacion Notificaciones mensajes-->
+                                    </div>
+                                </div>
+                            </li>
+                            <!----------------------°Finalización mensajes---------------------->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- header area end --------->
+
+
+
+            <!-- page title area start -->
+            <div class="page-title-area">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">Bienvenidos</h4>
+                            <ul class="breadcrumbs pull-left">
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
+                            <h3 class="user-name dropdown-toggle" data-toggle="dropdown">Hotel San Luis <i
+                                    class="fa fa-angle-down"></i></h3>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Configuraciones</a>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sección </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!----------- °Page title area end--------------->
+
+
+
+            <div class="main-content-inner">
+                <!-- sales report area start -->
+                <div class="sales-report-area mt-5 mb-5">
+                    <div class="row">
+
+                        <div class="col-md-6 mt-5 mb-3">
+                            <div class="card">
+                                <div class="seo-fact sbg1">
+                                    <div class="p-4 d-flex justify-content-between align-items-center">
+                                        <div class="seofct-icon"><i class="ti-bar-chart"></i> Ingresos mensuales</div>
+                                        <h2>{{ingresos_mensuales}}</h2>
+                                    </div>
+                                    <canvas id="seolinechart1" height="50"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-md-5 mb-3">
+                            <div class="card">
+                                <div class="seo-fact sbg3">
+                                    <div class="p-4 d-flex justify-content-between align-items-center">
+                                        <div class="seofct-icon"><i class="ti-timer"></i>Proximos inactivos
+                                        </div>
+                                        <h2>{{proximos_inactivos}}</h2>
+                                    </div>
+                                    <canvas id="seolinechart2" height="50"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-3 mb-3">
+                            <div class="card">
+                                <div class="seo-fact sbg4">
+                                    <div class="p-4 d-flex justify-content-between align-items-center">
+                                        <div class="seofct-icon"><i class="ti-user"></i>Nuevos usuarios</div>
+                                        <h2>{{nuevos_usuarios}}</h2>
+                                    </div>
+                                    <canvas id="seolinechart2" height="50"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3 mb-3">
+                            <div class="card">
+                                <div class="seo-fact sbg2">
+                                    <div class="p-4 d-flex justify-content-between align-items-center">
+                                        <div class="seofct-icon"><i class="ti-money"></i>Ingresos diarios</div>
+                                        <h2>{{ ingresos_diarios }}</h2>
+                                    </div>
+                                    <canvas id="seolinechart1" height="50"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    
+                                        
+                                    <div id="container"></div>
+                                    </div>
+                                    <script type="application/javascript">Highcharts.chart('container', {
+                                        chart: {
+                                            type: 'column'
+                                        },
+                                        title: {
+                                            text: 'Hotel San Luis Since'
+                                        },
+                                        subtitle: {
+                                            text: 'Estadisditicas'
+                                        },
+                                        xAxis: {
+                                            categories: [
+                                                'Enero',
+                                                'Febrero',
+                                                'Marzo',
+                                                'Abril',
+                                                'Mayo',
+                                                'Junio',
+                                                'Julio',
+                                                'Agosto',
+                                                'Septiembre',
+                                                'Octubre',
+                                                'Noviembre',
+                                                'Diciembre'
+                                            ],
+                                            crosshair: true
+                                        },
+                                        yAxis: {
+                                            min: 0,
+                                            title: {
+                                                text: 'Ingresos mensuales'
+                                            }
+                                        },
+                                        tooltip: {
+                                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                                '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+                                            footerFormat: '</table>',
+                                            shared: true,
+                                            useHTML: true
+                                        },
+                                        plotOptions: {
+                                            column: {
+                                                pointPadding: 0.2,
+                                                borderWidth: 0
+                                            }
+                                        },
+                                        series: [{
+                                            name: 'Ingresos',
+                                            showInLegend: false,
+                                            colorByPoint: true,
+                                            data: {{ estadisticas|safe }}
+                                    
+                                        }]
+                                    });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 mx-auto my-auto ">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Tabla instancias caducadas </h4>
+                                    <div class="data-tables datatable-dark">
+                                        <table id="dataTable3" class="text-center">
+                                            <thead class="text-capitalize">
+
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Identificacón</th>
+                                                    <th>Estado</th>
+                                                    <th>Fecha inicio</th>
+                                                    <th>Fecha final</th>
+                                                    <th>Valor</th>
+                                                    <th>Comentario</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {% for i in clientes %}
+                                                {% if i.ocultar == True and i.estado == False%}
+
+                                                <tr>
+                                                    <td>{{ i.nombres }}</td>
+                                                    <td>{{ i.identificacion }}</td>
+
+                                                    {% if i.estado == False %}
+
+                                                    <td class="badge badge-danger" class="">
+                                                        <p>Inactivo</p>
+                                                    </td>
+                                                    {% endif %}
+
+
+                                                    <td>{{ i.fecha_inicial }}</td>
+                                                    <td>{{ i.fecha_final }}</td>
+                                                    <td>{{ i.valor }}</td>
+                                                    <td>{{ i.comentario }}</td>
+                                                    <td><a href="{% url 'hotel:editarC' i.id %}"
+                                                            class="badge badge-success"> Editar <i
+                                                                class="ti-pencil-alt"></i></a>
+
+
+                                                        <a href="{% url 'hotel:eliminar_cliente' i.id %}"
+                                                            class="badge badge-danger"> Eliminar <i
+                                                                class="ti-trash"></i></a>
+                                                        <a href="{% url 'hotel:ocultar_cliente' i.id %}"
+                                                            class="badge badge-warning"> ocultar <i
+                                                                class="ti-import"></i></a>
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
+
+
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- sales report area end -->
+                    <!-- overview area start -->
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    {% endblock body %}
+
+
+
+    <!-- offset area end -->
+    <!-- jquery latest version -->
+    <script src='{% static "js/vendor/jquery-2.2.4.min.js" %}'></script>
+    <!-- bootstrap 4 js -->
+    <script src='{% static "js/popper.min.js" %}'></script>
+    <script src='{% static "js/bootstrap.min.js" %}'></script>
+    <script src='{% static "js/owl.carousel.min.js" %}'></script>
+    <script src='{% static "js/metisMenu.min.js" %}'></script>
+    <script src='{% static "js/jquery.slimscroll.min.js" %}'></script>
+    <script src='{% static "js/jquery.slicknav.min.js" %}'></script>
+
+    <!-- start chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <!-- start highcharts js -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- start zingchart js -->
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+    </script>
+    <!-- all line chart activation -->
+    <script src='{% static "js/line-chart.js" %}'></script>
+    <!-- all pie chart -->
+    <script src='{% static "js/pie-chart.js" %}'></script>
+    {% block extrajs %}
+    <!-- Start datatable js -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    {% endblock extrajs %}
+    <!-- others plugins -->
+    <script src='{% static "js/plugins.js" %}'></script>
+
+    <script src='{% static "js/scripts.js" %}'></script>
+
+
+
+</body>
+
+</html>

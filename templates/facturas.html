@@ -1,0 +1,94 @@
+
+{% load static %}
+<html lang="en">
+<head>
+  <style>
+    .img-invoice {
+        width: 50px;
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+
+    .head h1,h2,h3 {
+        text-align: center;
+        text-transform: uppercase;
+        padding: 0;
+        margin: 0;
+    }
+    .h1{
+      text-align: center;
+      font-size: 20px;
+    }
+
+    #invoice thead tr th {
+        text-align: left;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        padding-top: 4px;
+    }
+
+    #invoice thead tr {
+        padding: 5px;
+    }
+
+    #invoice tbody tr {
+        padding: 5px;
+    }
+
+    .text-center{
+        text-align: center;
+    }
+</style>
+<body>
+<p class="head">
+    
+    <h1 class="h1">Hotel San Luis Sincé </h1>
+    <h2>Since-Sucre</h2> 
+    <h2>Colombia<h2>  
+</p>
+<p>
+    <b>FACTURA:</b> {{ cliente.id }}<br>
+    <b>FECHA DE FACTURA:</b> {{ fecha_actual }}<br>
+    <b>CLIENTE:</b> {{ cliente.nombres}}<br>
+    <b>DNI:</b> {{ cliente.identificacion }}<br>
+</p>
+<table id="invoice">
+    <thead>
+    <tr>
+        <th style="width: 20%;">  Nombres</th>
+        <th style="width: 20%;">Apellidos</th>
+        <th style="width: 25%;">Fecha Inicial</th>
+        <th style="width: 25%;">Feccha Final</th>
+        <th style="width: 10%;">Valor</th>
+    </tr>
+    <br>
+    </thead>
+    <tbody>
+      <br>
+ 
+        <tr {% if forloop.first %}style="padding-top: 3px;" {% endif %}>
+            <td class="text-center">{{ cliente.nombres }}</td>
+            <td class="text-center">{{ cliente.apellidos }}</td>
+            <td>{{ cliente.fecha_inicial }}</td>
+            <td>{{ cliente.fecha_final }}</td>
+            <td style="text-align: right;">$ {{ cliente.valor }}</td>
+        </tr>
+        <td colspan="2"><b>Facturado por:</b></td>
+        <td style="text-align: right">Jesus David Redondo</td>
+    </tr>
+    </tbody>
+</table>
+<table style="margin-top: 100px;">
+    <thead>
+    <tr>
+        <th>****GRACIAS POR PREFERIRNOS****</th>
+    </tr>
+    <tr>
+        <th>DIOS LO BENDIGA</th>
+    </tr>
+    </thead>
+</table>
+</body>
+</html>
+

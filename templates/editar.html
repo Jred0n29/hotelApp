@@ -1,0 +1,178 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block titulo %} Registrar clientes {% endblock titulo %}
+
+{% block extracss %}{% endblock extracss %}
+
+{% block body %}
+
+<!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+<!-- preloader area start -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- preloader area end -->
+<!-- page container area start -->
+<div class="page-container">
+    <!------------ *sidebar menu area start* ------------->
+    <div class="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="logo">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'img/descarga2.png' %}" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="main-menu">
+            <div class="menu-inner">
+                <nav>
+                    <ul class="metismenu" id="menu">
+                        <li class="active">
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Panel de
+                                    control</span></a>
+                            <ul class="collapse">
+                                <li class="active"><a href="{% url 'index' %}"><i class="ti-home"></i> <span>Inicio</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'hotel:clientes' %}"><i class="ti-user"></i> <span>Registros clientes</span></a></li>
+                        <li><a href="#"><i class="ti-crown"></i> <span>Registrar admin</span></a></li>
+                        <li><a href="{% url 'hotel:datos' %}"><i class="ti-server"></i> <span>Base de datos</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-------------------- °sidebar menu area end° --------------------------->
+
+    <!-- main content area start -->
+    <div class="main-content">
+        <!-- header area start -->
+        <div class="header-area">
+            <div class="row align-items-center">
+                <!-- nav and search button -->
+                <div class="col-md-6 col-sm-8 clearfix">
+                    <div class="nav-btn pull-left">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="search-box pull-left">
+                        <h3 class="page-title pull-left">Hotel San Luis </h3>
+                    </div>
+                </div>
+                <!-- profile info & task notification -->
+                <div class="col-md-6 col-sm-4 clearfix">
+                    <ul class="notification-area pull-right">
+                        <li id="full-view"><i class="ti-fullscreen"></i></li>
+                        <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                        <!----------------------°Finalización mensajes---------------------->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- header area end --------->
+
+
+
+        <!-- page title area start -->
+        <div class="page-title-area">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="breadcrumbs-area clearfix">
+                        <h4 class="page-title pull-left">Bienvenidos</h4>
+                        <ul class="breadcrumbs pull-left">
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 clearfix">
+                    <div class="user-profile pull-right">
+                        <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
+                        <h1 class="user-name dropdown-toggle" data-toggle="dropdown">Hotel San Luis <i
+                                class="fa fa-angle-down"></i></h1>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Configuraciones</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sección </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!----------- °Page title area end--------------->
+
+
+
+        <!-- Textual inputs start -->
+        <div class="col-12 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Formulario Editar Clientes</h4>
+                    <p class="text-muted font-14 mb-4">Digite los nuevos datos cliente de manera correcta, al
+                        finalizar asegurece de que no hayan campos vacios</p>
+                    <form method="POST">
+                         {% csrf_token %}
+                        <div class="form-group">
+                            <label for="example-id-input" class="col-form-label">Identificacón</label>
+                            <input class="form-control" type="number" placeholder="Digite su identificacón"
+                                id="example-id-input" name="identificacion"  value= {{cliente.identificacion}} required>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-nombres-input" class="col-form-label">Nombres</label>
+                            <input class="form-control" type="text" placeholder="Digite sus nombres"
+                                id="example-nombres-input" name= "nombres"  value= {{cliente.nombres}} required>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-apellidos-input" class="col-form-label">Apellidos</label>
+                            <input class="form-control" type="text" placeholder="Digite sus apellidos"
+                                id="example-apellidos-input" name="apellidos" value= {{cliente.apellidos}} required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="example-tel-input" class="col-form-label">Telefono</label>
+                            <input class="form-control" type="number" placeholder="Digite su telefono"
+                                id="example-tel-input" name="telefono"  value= {{cliente.telefono}} required>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="example-inicio-input" class="col-form-label">Fecha inicio</label>
+                            <input class="form-control" type="date" id="example-inicio-input" name="fecha_inicial" value= {{cliente.fecha_inicial}} required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="example-final-input" class="col-form-label">Fecha finalización</label>
+                            <input class="form-control" type="date" id="example-final-input" name="fecha_final" value= {{cliente.fecha_final}} required>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-pago-input" class="col-form-label">Valor a pagar</label>
+                            <input class="form-control" type="number" placeholder="Digite el valor a pagar"
+                                id="example-pago-input" name="valor"  value= {{cliente.valor}} required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="example-comentario-input" class="col-form-label">Comentario</label>
+                            <input class="form-control" type="text" placeholder="De haber algun comentario escriba aqui"
+                                id="example-comentario-input" name="comentario"  value= {{cliente.comentario}} >
+                        </div>
+
+
+
+
+                        <button type="submit" class="btn btn-rounded btn-primary mb-3">Guardar</button>
+                        <button type="button" class="btn btn-rounded btn-danger mb-3"><a href="{% url 'index' %}">Cancelar</a></button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- Textual inputs end -->
+    </div>
+</div>
+</div>
+{% endblock body %}
+{% block extrajs %}{% endblock extrajs %}
