@@ -3,7 +3,7 @@ from .base import *
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['hotelsanluis.herokuapp.com']
 
