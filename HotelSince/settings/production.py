@@ -5,7 +5,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['hotelsanluis.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 DATABASES = {
