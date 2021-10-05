@@ -3,6 +3,11 @@ from .base import *
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DEBUG = True
+
+ALLOWED_HOSTS = ['hotelsanluis.herokuapp.com']
+
+
 DATABASES = {
     'default':{
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
